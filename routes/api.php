@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PromoCode\StorePromoCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', LoginController::class);
+Route::post('/admins/login', LoginController::class);
 
 Route::middleware(['api', 'set-current-admin'])->group(function () {
-
+    Route::post('/promo-codes', StorePromoCodeController::class);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
