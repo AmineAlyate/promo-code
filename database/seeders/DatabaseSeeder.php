@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use PromoCode\Models\Admin;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Admin::query()->create(
+            [
+                Admin::COL_EMAIL    => 'amine@promocode.test',
+                Admin::COL_PASSWORD => bcrypt('password'),
+            ]
+        );
     }
 }
