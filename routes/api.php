@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\Admin\LoginController as AdminLoginController;
+use App\Http\Controllers\Auth\User\LoginController as UserLoginController;
 use App\Http\Controllers\PromoCode\StorePromoCodeController;
+use App\Http\Controllers\PromoCode\ValidatePromoCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/admins/login', LoginController::class);
+Route::post('/admins/login', AdminLoginController::class);
+Route::post('/users/login', UserLoginController::class);
 
-Route::middleware(['api', 'set-current-admin'])->group(function () {
-    Route::post('/promo-codes', StorePromoCodeController::class);
+Route::middleware(['api'])->prefix('promo-codes')->group(function () {
+    Route::middleware(['set-current-admin'])->group(function () {
+        Route::post('/', StorePromoCodeController::class);
+    });
+
+    Route::middleware(['set-current-user'])->group(function () {
+        Route::get('/validate/{code}/{price}', ValidatePromoCodeController::class);
+    });
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

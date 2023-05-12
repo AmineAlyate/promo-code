@@ -1,6 +1,6 @@
 <?php
 
-namespace PromoCode\Exceptions\Auth;
+namespace PromoCode\Exceptions;
 
 class InvalidCredentialsException extends \Exception
 {

@@ -12,7 +12,7 @@ class PromoCodeUser implements Arrayable
     private int $usage;
     private int $maxUsage;
 
-    private function __construct(int $userId, int $maxUsage, int $usage)
+    private function __construct(int $userId, int $usage, ?int $maxUsage = null)
     {
         $this->userId = $userId;
         $this->usage = $usage;
@@ -21,13 +21,13 @@ class PromoCodeUser implements Arrayable
 
     public static function createFromArray(array $data): self
     {
-        if (!Arr::has($data, 'user_id') || !Arr::has($data, 'max_usage')) {
+        if (!Arr::has($data, 'user_id')) {
             {
                 throw new InvalidArgumentException('Invalid promo code users data provided');
             }
         }
 
-        return new self($data['user_id'], $data['max_usage'], $data['usage'] ?? 0);
+        return new self($data['user_id'], $data['usage'] ?? 0, Arr::get($data, 'max_usage'));
     }
 
     public function toArray()
@@ -55,10 +55,15 @@ class PromoCodeUser implements Arrayable
         return $this->usage;
     }
 
+    public function incrementUsage(): int
+    {
+        return ++$this->usage;
+    }
+
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxUsage(): int
+    public function getMaxUsage(): ?int
     {
         return $this->maxUsage;
     }

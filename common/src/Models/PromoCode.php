@@ -4,6 +4,8 @@ namespace PromoCode\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use PromoCode\DTO\PromoCodeUser;
 
 class PromoCode extends Model
 {
@@ -29,15 +31,6 @@ class PromoCode extends Model
         self::COL_USERS => 'array',
     ];
 
-    public static function getAvailableTypes(): array
-    {
-        // TODO - add translation
-        return [
-            self::TYPE_PERCENTAGE => 'Percentage',
-            self::TYPE_VALUE      => 'Value',
-        ];
-    }
-
     public function getId(): int
     {
         return $this->getAttribute(self::ID_COLUMN);
@@ -53,14 +46,23 @@ class PromoCode extends Model
         return $this->getAttribute(self::COL_VALUE);
     }
 
-    public function getType(): int
-    {
-        return $this->getAttribute(self::COL_TYPE);
-    }
-
     public function getTypeAsText(): string
     {
         return self::getAvailableTypes()[$this->getType()];
+    }
+
+    public static function getAvailableTypes(): array
+    {
+        // TODO - add translation
+        return [
+            self::TYPE_PERCENTAGE => 'Percentage',
+            self::TYPE_VALUE      => 'Value',
+        ];
+    }
+
+    public function getType(): int
+    {
+        return $this->getAttribute(self::COL_TYPE);
     }
 
     public function getEndDate(): ?Carbon
@@ -68,18 +70,53 @@ class PromoCode extends Model
         return $this->getAttribute(self::COL_END_DATE);
     }
 
-    public function getMaxUsage(): int
-    {
-        return $this->getAttribute(self::COL_MAX_USAGE);
-    }
-
     public function getUsageCount(): int
     {
         return $this->getAttribute(self::COL_USAGE_COUNT) ?? 0;
     }
 
-    public function getUsers(): array
+    public function hasUser(int $id): bool
     {
-        return $this->getAttribute(self::COL_USERS);
+        return $this->findUser($id) !== null;
+    }
+
+    private function findUser(int $id): ?PromoCodeUser
+    {
+        return $this->getUsers()->first(fn(PromoCodeUser $user) => $user->getUserId() === $id);
+    }
+
+    /**
+     * @return Collection|PromoCodeUser[]
+     */
+    public function getUsers(): array|Collection
+    {
+        $users = $this->getAttribute(self::COL_USERS);
+
+        return collect(
+            array_map(function ($user) {
+                return PromoCodeUser::createFromArray($user);
+            }, $users)
+        );
+    }
+
+    public function getMaxUsagePerUser(int $id): int
+    {
+        /** @var PromoCodeUser|null $user */
+        $user = $this->findUser($id);
+
+        return $user ? $user->getMaxUsage() : 0;
+    }
+
+    public function getMaxUsage(): ?int
+    {
+        return $this->getAttribute(self::COL_MAX_USAGE);
+    }
+
+    public function getUsageCountForUser(int $id): int
+    {
+        /** @var PromoCodeUser|null $user */
+        $user = $this->findUser($id);
+
+        return $user ? $user->getUsage() : 0;
     }
 }
