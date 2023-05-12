@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use PromoCode\Locator\CurrentAdminLocator;
+use PromoCode\Locator\CurrentUserLocator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(CurrentAdminLocator::class);
+        $this->app->singleton(CurrentUserLocator::class);
     }
 
     /**

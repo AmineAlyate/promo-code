@@ -2,7 +2,7 @@
 
 namespace PromoCode\Locator;
 
-use PromoCode\Exceptions\Auth\AdminNotFoundException;
+use PromoCode\Exceptions\AdminNotFoundException;
 use PromoCode\Models\Admin;
 
 class CurrentAdminLocator

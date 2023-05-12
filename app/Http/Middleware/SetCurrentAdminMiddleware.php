@@ -15,7 +15,7 @@ class SetCurrentAdminMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        $admin = auth('api')->user();
+        $admin = auth('admins')->user();
         if (!$admin instanceof Admin) {
             return $next($request);
         }

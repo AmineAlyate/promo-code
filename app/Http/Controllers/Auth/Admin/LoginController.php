@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class LoginController extends Controller
         try {
             $email = $request->get('email');
             $password = $request->get('password');
-            if (!$token = auth('api')->attempt(compact('email', 'password'))) {
+            if (!$token = auth('admins')->attempt(compact('email', 'password'))) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
 
