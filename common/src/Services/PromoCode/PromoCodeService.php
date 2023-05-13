@@ -100,7 +100,7 @@ class PromoCodeService
         return $this->promoCodeRepository->findByCode($code);
     }
 
-    public function promoCodeUsed(PromoCode $promoCode, ?User $user): bool
+    public function promoCodeUsed(PromoCode $promoCode, ?User $user = null): bool
     {
         if ($user instanceof User) {
             $this->incrementUsageCountForUser($promoCode, $user->getId());

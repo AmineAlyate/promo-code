@@ -12,9 +12,24 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const COL_ID = 'id';
+    public const COL_NAME = 'name';
+    public const COL_EMAIL = 'email';
+    public const COL_PASSWORD = 'password';
+
     public function getId()
     {
-        return $this->getAttribute('id');
+        return $this->getAttribute(self::COL_ID);
+    }
+
+    public function getName()
+    {
+        return $this->getAttribute(self::COL_NAME);
+    }
+
+    public function getEmail()
+    {
+        return $this->getAttribute(self::COL_EMAIL);
     }
 
     /**
