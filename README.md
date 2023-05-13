@@ -46,9 +46,9 @@ Make sure to select the environment "Dev env" before running the requests.
 
 Available endpoints:
 
-| Admin                      |                                                           User                                                           |                                  Guest                                       |
-|:---------------------------|:------------------------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------:|
-| Create promo code<br/>`/api/promo-codes` | Validate promo code<br/>`/api//promo-codes/validate`<br/>This endpoint requires two params<br/> promo code and the amont | Login as a user `/api/users/login`<br/>Login as an admin `/api/admins/login` |
+| Admin                      |                                                           User                                                           | Guest                                                                            |
+|:---------------------------|:------------------------------------------------------------------------------------------------------------------------:|----------------------------------------------------------------------------------|
+| Create promo code<br/>`/api/promo-codes` | Validate promo code<br/>`/api//promo-codes/validate`<br/>This endpoint requires two params<br/> promo code and the amont | - Login as a user `/api/users/login`<br/>- Login as an admin `/api/admins/login` |
 
 ## Tests
 
