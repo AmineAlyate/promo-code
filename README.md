@@ -5,23 +5,29 @@
 ```bash
 $ git clone git@github.com:AmineAlyate/promo-code.git
 ```
-Inside the project folder, run the following:
+> Inside the project folder, run the following:
 
 ```bash
 $ docker-compose  up -d
+$ docker-compose start
 ```
+
+### Database
+Connect to the mysql container and run the following commands:
+
+```bash
+$ docker exec -it promo-code-mysql-1 bash
+$ mysql -u root -ppassword
+$ create database promo_code character set UTF8mb4 collate utf8mb4_bin;
+```
+
 Then connect to the php container and run the following commands:
 
 ```bash
+$ docker exec -it promo-code-laravel.test-1 bash
 $ composer install
 $ php artisan migrate
 $ php artisan db:seed
-```
-Then exit the container and use sail to execute any other commands
-    
-```bash
-$ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
-$ sail up -d
 ```
 
 On your vhosts file, add the following:
