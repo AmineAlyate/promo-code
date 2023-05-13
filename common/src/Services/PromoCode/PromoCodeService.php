@@ -4,6 +4,7 @@ namespace PromoCode\Services\PromoCode;
 
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
+use PromoCode\DTO\Collections\PromoCodeUsers;
 use PromoCode\DTO\PromoCodeUser;
 use PromoCode\Exceptions\PromoCode\InvalidPromoCodeException;
 use PromoCode\Models\PromoCode;
@@ -50,49 +51,51 @@ class PromoCodeService
             return;
         }
 
-        foreach ($attributes['users'] as $userData) {
-            PromoCodeUser::createFromArray($userData);
-        }
+        PromoCodeUsers::createFromArray($attributes['users']);
     }
 
     /**
      * @param string $code
      * @param User|null $user
      *
-     * @return void
+     * @return PromoCode
      * @throws InvalidPromoCodeException
      */
-    public function validatePromoCode(string $code, ?User $user = null): void
+    public function validatePromoCode(string $code, ?User $user = null): PromoCode
     {
         $promoCode = $this->findByCode($code);
         if (!$promoCode instanceof PromoCode) {
-            throw new InvalidPromoCodeException($code);
+            throw new InvalidPromoCodeException($code, 'Promo code not found');
         }
 
         if (!is_null($promoCode->getEndDate()) && $promoCode->getEndDate()->isPast()) {
-            throw new InvalidPromoCodeException($code);
+            throw new InvalidPromoCodeException($code, 'Promo code expired');
         }
 
         if ($promoCode->getMaxUsage() !== null && $promoCode->getMaxUsage() <= $promoCode->getUsageCount()) {
-            throw new InvalidPromoCodeException($code);
+            throw new InvalidPromoCodeException($code, 'Promo code usage limit reached');
         }
 
-        if ($promoCode->getUsers()->count() === 0) {
-            return;
+        if (count($promoCode->getUsers()) === 0) {
+            return $promoCode;
         }
 
         if (!$user instanceof User) {
-            throw new InvalidPromoCodeException($code);
+            throw new InvalidPromoCodeException($code, 'Promo code is not available for this user');
         }
 
-        if (!$promoCode->hasUser($user->getId())) {
-            throw new InvalidPromoCodeException($code);
+        $promoCodeUsers = PromoCodeUsers::createFromArray($promoCode->getUsers());
+
+        if (!$promoCodeUsers->hasUser($user->getId())) {
+            throw new InvalidPromoCodeException($code, 'Promo code is not available for this user');
         }
 
-        if ($promoCode->getMaxUsagePerUser($user->getId()) <= $promoCode->getUsageCountForUser($user->getId())
+        if ($promoCodeUsers->getMaxUsagePerUser($user->getId()) <= $promoCodeUsers->getUsageCountForUser($user->getId())
         ) {
-            throw new InvalidPromoCodeException($code);
+            throw new InvalidPromoCodeException($code, 'Promo code usage limit reached for this user');
         }
+
+        return $promoCode;
     }
 
     public function findByCode(string $code): ?PromoCode
@@ -111,8 +114,8 @@ class PromoCodeService
 
     private function incrementUsageCountForUser(PromoCode $promoCode, int $userId): void
     {
-        $promoCodeUsers = $promoCode->getUsers();
-        $codeUser = $promoCodeUsers->first(fn(PromoCodeUser $user) => $user->getUserId() === $userId);
+        $promoCodeUsers = PromoCodeUsers::createFromArray($promoCode->getUsers());
+        $codeUser = $promoCodeUsers->findUser($userId);
         if (!$codeUser instanceof PromoCodeUser) {
             return;
         }

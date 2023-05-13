@@ -50,3 +50,22 @@ Available endpoints:
 |:---------------------------|:------------------------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------:|
 | Create promo code<br/>`/api/promo-codes` | Validate promo code<br/>`/api//promo-codes/validate`<br/>This endpoint requires two params<br/> promo code and the amont | Login as a user `/api/users/login`<br/>Login as an admin `/api/admins/login` |
 
+## Tests
+
+To run the tests, run the following command:
+
+```bash
+$ docker exec -it promo-code-laravel.test-1 bash
+$ php artisan test
+```
+
+Covered tests:
+- Promo code valid creation
+- Promo code with invalid type creation
+- Promo code without specifying promo code creation
+- Promo code doesn't exist in the db validation
+- Promo code is expired validation
+- Promo code is valid for the user validation
+- Promo code max usage validation
+- Promo code max usage for user validation
+

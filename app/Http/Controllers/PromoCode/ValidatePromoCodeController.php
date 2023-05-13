@@ -21,20 +21,18 @@ class ValidatePromoCodeController
     public function __invoke(Request $request, string $code, int $price)
     {
         try {
-            $promoCode = $this->promoCodeService->findByCode($code);
-
             try {
                 $user = $this->currentUserLocator->get();
             } catch (UserNotFoundException $e) {
                 $user = null;
             }
 
-            $this->promoCodeService->validatePromoCode($code, $user);
+            $promoCode = $this->promoCodeService->validatePromoCode($code, $user);
             $this->promoCodeService->promoCodeUsed($promoCode, $user);
 
             $discountedAmount = $promoCode->getType() === PromoCode::TYPE_VALUE
                 ? $promoCode->getValue()
-                : $price * $promoCode->getValue() / 100;
+                : ($price * $promoCode->getValue()) / 100;
 
             return response()->json(
                 [
@@ -48,6 +46,8 @@ class ValidatePromoCodeController
             return response()->json(
                 [
                     'body' => 'Promo code not valid',
+                    // Uncomment this line to get more details about the invalid promo code
+                    //'reason' => $e->getReason(),
                 ],
                 404
             );
