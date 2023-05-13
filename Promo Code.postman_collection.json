@@ -1,0 +1,1070 @@
+{
+	"info": {
+		"_postman_id": "e0df1c25-8b9a-4c00-9f7a-6093752bbeaa",
+		"name": "Promo Code",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24151818",
+		"_collection_link": "https://texa-team.postman.co/workspace/Promo-Code~410a3ca4-077b-41fd-a592-b930bfcd26b7/collection/24151818-e0df1c25-8b9a-4c00-9f7a-6093752bbeaa?action=share&creator=24151818&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Response is ok', function() {",
+											"    pm.response.to.be.ok;",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"",
+											"if(response.token_type === 'bearer') {",
+											"    pm.environment.set('access_token', response.access_token);",
+											"",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "admin@promocode.test",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admins/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admins",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "amine@promocode.test",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:18:57 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:18:57 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcHJvbW8tY29kZS50ZXN0L2FwaS9sb2dpbiIsImlhdCI6MTY4MzkyMjczNywiZXhwIjoxNjgzOTI2MzM3LCJuYmYiOjE2ODM5MjI3MzcsImp0aSI6IkREbnFNSm8wd1Q0R1AwbjUiLCJzdWIiOiIxIiwicHJ2IjoiOWNkZDRlMjY2MDhkYTNiMzVmNmEwMDA3ODVkZDcxZGIxMTJjMDc0ZSJ9.Waxu6E9LFRs6xzCFGGHx6OhyRieiQxyTu9WWlZlv3p8\",\n    \"token_type\": \"bearer\"\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "amine@promocode.test",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "passwords",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:19:13 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:19:13 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Promo Code",
+					"item": [
+						{
+							"name": "Store",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "code",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "value",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"description": "1: percentage, 2: Value",
+											"type": "text"
+										},
+										{
+											"key": "end_date",
+											"value": "12-10-2021 01:12:00",
+											"type": "text"
+										},
+										{
+											"key": "max_usage",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "users[0][user_id]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "users[0][max_usage]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "users[1][user_id]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "users[1][max_usage]",
+											"value": "12",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/promo-codes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"promo-codes"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "code",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "value",
+													"value": "20",
+													"type": "text"
+												},
+												{
+													"key": "type",
+													"value": "1",
+													"description": "1: percentage, 2: Value",
+													"type": "text"
+												},
+												{
+													"key": "end_date",
+													"value": "12-10-2021 01:12:00",
+													"type": "text"
+												},
+												{
+													"key": "max_usage",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "users[0][user_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "users[0][max_usage]",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "users[1][user_id]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "users[1][max_usage]",
+													"value": "12",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/promo-codes",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"promo-codes"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 21:33:14 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 21:33:14 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 9,\n    \"code\": \"9-PROMO-CODE-2023\",\n    \"value\": 20,\n    \"type\": \"Percentage\",\n    \"end_date\": \"2021-10-12 01:12:00\",\n    \"max_usage\": 5,\n    \"usage_count\": 0,\n    \"users\": [\n        {\n            \"user_id\": \"1\",\n            \"max_usage\": \"10\"\n        },\n        {\n            \"user_id\": \"2\",\n            \"max_usage\": \"12\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "Store",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "code",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "value",
+													"value": "20",
+													"type": "text"
+												},
+												{
+													"key": "type",
+													"value": "1",
+													"description": "1: percentage, 2: Value",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "end_date",
+													"value": "12-10-2021 01:12:00",
+													"type": "text"
+												},
+												{
+													"key": "max_usage",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "users[0][user_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "users[0][max_usage]",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "users[1][user_id]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "users[1][max_usage]",
+													"value": "12",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/promo-codes",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"promo-codes"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 21:36:10 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 21:36:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": {\n        \"type\": [\n            \"The type field is required.\"\n        ]\n    }\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Response is ok', function() {",
+											"    pm.response.to.be.ok;",
+											"});",
+											"",
+											"let response = pm.response.json();",
+											"",
+											"if(response.token_type === 'bearer') {",
+											"    pm.environment.set('access_token', response.access_token);",
+											"",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "user1@promocode.test",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/users/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "amine@promocode.test",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:18:57 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:18:57 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcHJvbW8tY29kZS50ZXN0L2FwaS9sb2dpbiIsImlhdCI6MTY4MzkyMjczNywiZXhwIjoxNjgzOTI2MzM3LCJuYmYiOjE2ODM5MjI3MzcsImp0aSI6IkREbnFNSm8wd1Q0R1AwbjUiLCJzdWIiOiIxIiwicHJ2IjoiOWNkZDRlMjY2MDhkYTNiMzVmNmEwMDA3ODVkZDcxZGIxMTJjMDc0ZSJ9.Waxu6E9LFRs6xzCFGGHx6OhyRieiQxyTu9WWlZlv3p8\",\n    \"token_type\": \"bearer\"\n}"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "amine@promocode.test",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "passwords",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:19:13 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 20:19:13 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Promo Code",
+					"item": [
+						{
+							"name": "Validate",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/promo-codes/validate/7-PROMO-CODE-2023/200",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"promo-codes",
+										"validate",
+										"7-PROMO-CODE-2023",
+										"200"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Valid",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "code",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "value",
+													"value": "20",
+													"type": "text"
+												},
+												{
+													"key": "type",
+													"value": "1",
+													"description": "1: percentage, 2: Value",
+													"type": "text"
+												},
+												{
+													"key": "end_date",
+													"value": "12-10-2021 01:12:00",
+													"type": "text"
+												},
+												{
+													"key": "max_usage",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "users[0][user_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "users[0][max_usage]",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "users[1][user_id]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "users[1][max_usage]",
+													"value": "12",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/promo-codes/validate/7-PROMO-CODE-2023/200",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"promo-codes",
+												"validate",
+												"7-PROMO-CODE-2023",
+												"200"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 23:21:59 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 23:21:59 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"price\": 200,\n    \"promo_code_discounted_amount\": 40,\n    \"final_price\": \"160.00\"\n}"
+								},
+								{
+									"name": "Invalid",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{url}}/promo-codes/validate/7-PROMO-CODE-2023/200",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"promo-codes",
+												"validate",
+												"7-PROMO-CODE-2023",
+												"200"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "promo-code.test"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 23:23:28 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 12 May 2023 23:23:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.5"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "57"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"body\": \"Promo code not valid\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
